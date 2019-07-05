@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
              case R.id.addNote:
                  Intent intent = new Intent(getApplicationContext(), editNote.class);
                  startActivity(intent);
-                 return  true;
+                 return true;
          }
          return false;
     }

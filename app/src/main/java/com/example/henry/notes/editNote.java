@@ -20,6 +20,7 @@ public class editNote extends AppCompatActivity {
             MainActivity.notes.add(editText.getText().toString());
         } else {
             MainActivity.notes.set(noteNum, editText.getText().toString());
+            MainActivity.arrayAdapter.notifyDataSetChanged();
         }
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
@@ -34,6 +35,11 @@ public class editNote extends AppCompatActivity {
 
         Intent intent = getIntent();
         noteNum = intent.getIntExtra("note", -1);
+
+        if (noteNum == -1) {
+            MainActivity.notes.add("");
+            noteNum = MainActivity.notes.size() - 1;
+        }
 
         if (MainActivity.notes.size() > 0) {
             Log.i("Note Says", MainActivity.notes.get(noteNum));
