@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    static ArrayList<String> notes = new ArrayList<String>();
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -26,6 +28,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+         super.onOptionsItemSelected(item);
+
+         switch (item.getItemId()) {
+             case R.id.addNote:
+                 Intent intent = new Intent(getApplicationContext(), editNote.class);
+                 startActivity(intent);
+         }
+
+         return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -33,21 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
         ListView listView = findViewById(R.id.listView);
 
-        ArrayList<String> notes = new ArrayList<String>();
-
-        notes.add("New Note!");
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
 
 
         listView.setAdapter(arrayAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(getApplicationContext(), editNote.class);
-                startActivity(intent);
-            }
-        });
+
     }
 }
