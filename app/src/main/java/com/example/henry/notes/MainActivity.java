@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     static ArrayList<String> notes = new ArrayList<String>();
+    static ArrayAdapter arrayAdapter;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -35,9 +36,9 @@ public class MainActivity extends AppCompatActivity {
              case R.id.addNote:
                  Intent intent = new Intent(getApplicationContext(), editNote.class);
                  startActivity(intent);
+                 return  true;
          }
-
-         return true;
+         return false;
     }
 
     @Override
@@ -49,11 +50,23 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = findViewById(R.id.listView);
 
 
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
+        arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, notes);
 
 
         listView.setAdapter(arrayAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Intent intent = new Intent(getApplicationContext(), editNote.class);
+                intent.putExtra("note", i);
+                startActivity(intent);
+            }
+        });
+
 
     }
+
+
 }
